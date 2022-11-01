@@ -1,3 +1,24 @@
+let pcScore = 0;
+let playerScore = 0;
+
+let computerSelection = "?";
+let playerSelection = "?";
+
+const textScore = document.querySelector('.scores');
+textScore.textContent = `${playerScore} | ${pcScore}`;
+
+const textConditions = document.querySelector('.conditions');
+textConditions.textContent = `You: ${playerSelection} | PC: ${computerSelection}`;
+
+const buttonRock = document.querySelector('.rock');
+buttonRock.onclick = () => playRound("rock", getComputerChoice());
+
+const buttonPaper = document.querySelector('.paper');
+buttonPaper.onclick = () => playRound("paper", getComputerChoice());
+
+const buttonScissors = document.querySelector('.scissors');
+buttonScissors.onclick = () => playRound("scissors", getComputerChoice());
+
 function getComputerChoice(){
     switch (Math.floor(Math.random() * 3)) {
         case 0:
@@ -9,49 +30,35 @@ function getComputerChoice(){
     }
 }
 
-function playRound(playerSelection, computerSelection) {
-
-    while (true) {
-        if (playerSelection == "paper" || playerSelection == "rock" || playerSelection == "scissors") {
-            break;
-        }
-        else{
-            console.error("WRONG INPUT!");
-            console.warn("Try again");
-            playerSelection = prompt().toLowerCase();
-        }
-    }
-    let result = "[P1:" + playerSelection + "| PC:" + computerSelection + "]";
-    
-    if (playerSelection === computerSelection) {
-        console.log("Round draw " + result);
-    }
-    if (playerSelection === "paper" && computerSelection === "scissors"|| playerSelection == "rock" && computerSelection === "paper" || playerSelection == "scissors" && computerSelection === "rock"){
-        pcScore++;
-        console.log("PC won "  + result);
-    }
-    else{
-        playerScore++;
-        console.log("Player won " + result);
-    }
-    
+function getIsGameEnded(){
+    return pcScore > 4 || playerScore > 4;
 }
 
-let pcScore = 0;
-let playerScore = 0;
-
-function game() {
-    console.info("Type paper or scissors or rock");
+function dropStats(){
     pcScore = 0;
     playerScore = 0;
+    textConditions.textContent = `You: ${playerSelection} | PC: ${computerSelection}`;
+    textScore.textContent = `You: ${playerScore} | PC: ${pcScore}`;
+}
 
-    for (let index = 0; index < 5; index++) {
+function playRound(playerSelection, computerSelection) {
 
-        playRound(prompt().toLowerCase(), getComputerChoice());
-
-        if (pcScore >= 3) { return "PC is Victorious"; }
-
-        if(playerScore >= 3){ return "Player is Victorious"; }
+    if (playerSelection === computerSelection) 
+    { 
+        textConditions.textContent = `Draw`;
+        return;
     }
-    return "I cant.. its all draw..";
+
+    if (playerSelection === "paper" && computerSelection === "scissors"|| playerSelection == "rock" && computerSelection === "paper" || playerSelection == "scissors" && computerSelection === "rock"){
+        pcScore++;
+    }
+    else {playerScore++;}
+
+    textConditions.textContent = `You: ${playerSelection} | PC: ${computerSelection}`;
+    textScore.textContent = `You: ${playerScore} | PC: ${pcScore}`;
+
+    if (getIsGameEnded()) {
+        alert(`Game Ended! Winner is ${playerScore > 4 ? "Player" : "PC"}`);
+        dropStats();
+    }
 }
