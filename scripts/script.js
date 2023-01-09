@@ -5,28 +5,28 @@ let computerSelection = "?";
 let playerSelection = "?";
 
 const textScore = document.querySelector('.scores');
-textScore.textContent = `${playerScore} | ${pcScore}`;
+textScore.textContent = `${playerScore}  |  ${pcScore}`;
 
 const textConditions = document.querySelector('.conditions');
-textConditions.textContent = `You: ${playerSelection} | PC: ${computerSelection}`;
+textConditions.textContent = `You: ${playerSelection}  |  PC: ${computerSelection}`;
 
 const buttonRock = document.querySelector('.rock');
-buttonRock.onclick = () => playRound("rock", getComputerChoice());
+buttonRock.onclick = () => playRound("🪨", getComputerChoice());
 
 const buttonPaper = document.querySelector('.paper');
-buttonPaper.onclick = () => playRound("paper", getComputerChoice());
+buttonPaper.onclick = () => playRound("📄", getComputerChoice());
 
 const buttonScissors = document.querySelector('.scissors');
-buttonScissors.onclick = () => playRound("scissors", getComputerChoice());
+buttonScissors.onclick = () => playRound("✂️", getComputerChoice());
 
 function getComputerChoice(){
     switch (Math.floor(Math.random() * 3)) {
         case 0:
-            return "paper";
+            return "📄";
         case 1:
-            return "scissors";
+            return "✂️";
         case 2:
-            return "rock";
+            return "🪨";
     }
 }
 
@@ -49,7 +49,7 @@ function playRound(playerSelection, computerSelection) {
         return;
     }
 
-    if (playerSelection === "paper" && computerSelection === "scissors"|| playerSelection == "rock" && computerSelection === "paper" || playerSelection == "scissors" && computerSelection === "rock"){
+    if (playerSelection === "📄" && computerSelection === "scissors"|| playerSelection == "rock" && computerSelection === "paper" || playerSelection == "scissors" && computerSelection === "rock"){
         pcScore++;
     }
     else {playerScore++;}
