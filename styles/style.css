@@ -8,6 +8,7 @@ body{
     background-color: #1b1c22;
     color: white;
     font-family: 'Kanit', sans-serif;
+    
 }
 
 .content{
@@ -18,9 +19,22 @@ body{
     align-items: center;
 }
 
+.hider{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .scores{
     font-size: 46px;
     font-weight: 800;
+}
+
+.results{
+    margin-top: 5%;
+    font-size: 32px;
+    text-align: center;
 }
 
 .conditions{
@@ -38,7 +52,7 @@ button{
     padding: 16px;
     color: white;
     background-color: #25262C;
-    border-radius: 32px;
+    border-radius: 16px;
     border: solid 1px #709DFF;
     font-family: 'Kanit', sans-serif;
 }
@@ -47,7 +61,13 @@ button:hover{
     padding: 16px;
     color: white;
     background-color: #434657;
-    border-radius: 32px;
+    border-radius: 24px;
     border: solid 1px #85abfc;
     cursor: pointer;
+}
+
+.button.newgame{
+    font-size: 42px;
+    margin-top: 25%;
+    padding: 10px 50px 10px 50px;
 }

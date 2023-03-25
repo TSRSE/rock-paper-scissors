@@ -10,6 +10,10 @@ textScore.textContent = `${playerScore}  |  ${pcScore}`;
 const textConditions = document.querySelector('.conditions');
 textConditions.textContent = `You: ${playerSelection}  |  PC: ${computerSelection}`;
 
+
+
+const textResult = document.querySelector('.results');
+
 const buttonRock = document.querySelector('.rock');
 buttonRock.onclick = () => playRound("🪨", getComputerChoice());
 
@@ -18,6 +22,15 @@ buttonPaper.onclick = () => playRound("📄", getComputerChoice());
 
 const buttonScissors = document.querySelector('.scissors');
 buttonScissors.onclick = () => playRound("✂️", getComputerChoice());
+
+const blockNewGame = document.querySelector('.hider');
+blockNewGame.style.display = 'none';
+
+const buttonRestart = document.querySelector('.newgame');
+var elementsToHide = new Array();
+elementsToHide.push(buttonPaper, buttonRock, buttonScissors, blockNewGame);
+buttonRestart.onclick = () => restartGame();
+buttonRestart.textContent = 'Restart!';
 
 function getComputerChoice(){
     switch (Math.floor(Math.random() * 3)) {
@@ -39,6 +52,19 @@ function dropStats(){
     playerScore = 0;
     textConditions.textContent = `You: ${playerSelection} | PC: ${computerSelection}`;
     textScore.textContent = `You: ${playerScore} | PC: ${pcScore}`;
+    blockNewGame.style.display = 'none';
+}
+
+function hideToggle(elementsToHide){
+    
+    elementsToHide.forEach(element => {
+        if(element.style.display == 'none'){
+            element.style.display = 'flex';
+        }
+        else{
+            element.style.display = 'none';
+        }
+    });
 }
 
 function playRound(playerSelection, computerSelection) {
@@ -49,7 +75,7 @@ function playRound(playerSelection, computerSelection) {
         return;
     }
 
-    if (playerSelection === "📄" && computerSelection === "scissors"|| playerSelection == "rock" && computerSelection === "paper" || playerSelection == "scissors" && computerSelection === "rock"){
+    if (playerSelection === "📄" && computerSelection === "✂️" || playerSelection == "🪨" && computerSelection === "📄" || playerSelection == "✂️" && computerSelection === "🪨"){
         pcScore++;
     }
     else {playerScore++;}
@@ -58,7 +84,13 @@ function playRound(playerSelection, computerSelection) {
     textScore.textContent = `You: ${playerScore} | PC: ${pcScore}`;
 
     if (getIsGameEnded()) {
-        alert(`Game Ended! Winner is ${playerScore > 4 ? "Player" : "PC"}`);
-        dropStats();
+        hideToggle(elementsToHide);
+        console.log('GameEnded!');
+        textResult.textContent = `Game Ended! Winner is ${playerScore > 4 ? "Player" : "PC"}`;
     }
+}
+
+function restartGame(){
+    hideToggle(elementsToHide);
+    dropStats();
 }
